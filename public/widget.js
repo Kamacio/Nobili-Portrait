@@ -1,7 +1,6 @@
 (function () {
 
-  const CHATBOT_URL = 'https://newborn-academy-chatbot.vercel.app';
-
+  const CHATBOT_URL = 'https://nobili-portrait.vercel.app';
   const style = document.createElement('style');
 
   style.innerHTML = `
