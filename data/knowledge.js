@@ -1,4 +1,3 @@
-```js
 const knowledgeBase = `
 
 IDENTITÀ
@@ -205,4 +204,3 @@ Risposta:
 `;
 
 module.exports = { knowledgeBase };
-```
