@@ -129,12 +129,16 @@
   }
 
   #neo-widget-popup {
-    right: 15px;
-    bottom: 90px;
-    max-width: 220px;
-    font-size: 13px;
-    padding: 14px 38px 14px 16px;
-  }
+  right: 16px;
+  left: auto;
+  bottom: 88px;
+  width: 260px;
+  max-width: calc(100vw - 32px);
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 14px 38px 14px 16px;
+  border-radius: 18px;
+}
 
   #neo-widget-button {
     right: 15px;
@@ -158,9 +162,11 @@
       }
 
       #neo-widget-button {
-        right: 15px;
-        bottom: 15px;
-      }
+  right: 16px;
+  bottom: 16px;
+  width: 58px;
+  height: 58px;
+}
     }
   `;
 
