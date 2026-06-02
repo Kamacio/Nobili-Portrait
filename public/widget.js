@@ -53,65 +53,61 @@
     }
 
     #neo-widget-chat {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100dvh;
-  background: #f7f3ec;
-  z-index: 999999;
-  display: none;
-  overflow: hidden;
-}
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100dvh !important;
+      max-width: none !important;
+      max-height: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+      overflow: hidden !important;
+      background: #f7f3ec;
+      z-index: 999999;
+      display: none;
+    }
 
     #neo-widget-chat iframe {
-  width: 100vw;
-  height: 100dvh;
-  border: none;
-  display: block;
-}
+      width: 100vw !important;
+      height: 100dvh !important;
+      border: none;
+      display: block;
+    }
 
     #neo-widget-chat-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 36px;
-      height: 36px;
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
       border-radius: 999px;
-      background: #111;
+      background: rgba(0,0,0,0.82);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 2;
+      z-index: 1000002;
       font-family: Arial, sans-serif;
       font-size: 22px;
       font-weight: 700;
       line-height: 1;
+      backdrop-filter: blur(10px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     }
 
     @media(max-width:768px) {
-      #neo-widget-chat {
-        width: calc(100vw - 24px);
-        height: calc(100dvh - 24px);
-        right: 12px;
-        left: 12px;
-        bottom: 12px;
-        top: 12px;
-        border-radius: 22px;
-      }
-
       #neo-widget-popup {
-  right: 16px;
-  bottom: 88px;
-  width: 250px;
-  max-width: calc(100vw - 32px);
-  font-size: 13px;
-  line-height: 1.4;
-  padding: 14px 38px 14px 16px;
-  border-radius: 18px;
-}
+        right: 16px;
+        bottom: 88px;
+        width: 250px;
+        max-width: calc(100vw - 32px);
+        font-size: 13px;
+        line-height: 1.4;
+        padding: 14px 38px 14px 16px;
+        border-radius: 18px;
+      }
 
       #neo-widget-button {
         right: 15px;
@@ -119,26 +115,9 @@
       }
 
       #neo-widget-chat-close {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: rgba(0,0,0,0.82);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000002;
-  font-family: Arial, sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
+        top: 18px;
+        right: 18px;
+      }
     }
   `;
 
@@ -158,14 +137,14 @@
   });
 
   setTimeout(function () {
-  popup.classList.add('show');
-}, 1200);
+    popup.classList.add('show');
+  }, 1200);
 
-if (window.innerWidth <= 768) {
-  setTimeout(function () {
-    popup.classList.remove('show');
-  }, 8000);
-}
+  if (window.innerWidth <= 768) {
+    setTimeout(function () {
+      popup.classList.remove('show');
+    }, 8000);
+  }
 
   const button = document.createElement('div');
   button.id = 'neo-widget-button';
@@ -175,8 +154,8 @@ if (window.innerWidth <= 768) {
   chat.id = 'neo-widget-chat';
 
   chat.innerHTML = `
-    <div id="neo-widget-chat-close">×</div>
     <iframe src="${CHATBOT_URL}"></iframe>
+    <div id="neo-widget-chat-close">×</div>
   `;
 
   document.body.appendChild(chat);
