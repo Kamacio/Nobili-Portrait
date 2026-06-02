@@ -80,23 +80,24 @@
 }
 
     #neo-widget-chat-close {
-      position: fixed;
-      bottom: 765px;
-      right: 34px;
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.16);
-      color: #ffffff;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1000000;
-      font-family: Arial, sans-serif;
-      font-size: 22px;
-      line-height: 1;
-    }
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.82);
+  color: white;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000001;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
 
     #neo-widget-chat-close:hover {
       background: rgba(255,255,255,0.25);
