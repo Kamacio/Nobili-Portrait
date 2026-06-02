@@ -284,17 +284,18 @@
   }
 
   const LEAD_KEYWORDS = [
-    'prezz','cost','info','informaz','chiam','contatt',
-    'proposta','preventivo','dettagli','disponibil','prenot',
-    'shooting','servizio','ritratto','portrait','wedding',
-    'couple','engagement','anniversary','vacanza','italia',
-    'toscana','piemonte'
-  ];
+  'contattarvi', 'contattarci', 'contattatemi',
+  'parlarvi', 'parlarci', 'parlare con voi',
+  'vorrei essere contattato', 'mandate', 'mandatemi',
+  'chiamatemi', 'scrivetemi', 'lascio i miei dati',
+  'lascio il numero', 'lascio la mail',
+  'come vi contatto', 'come posso contattarvi'
+];
 
   function hasLeadIntent(text) {
-    const t = text.toLowerCase();
-    return LEAD_KEYWORDS.some(w => t.includes(w));
-  }
+  const t = text.toLowerCase();
+  return LEAD_KEYWORDS.some(w => t.includes(w));
+}
 
   function detectInterest(text) {
     const t = text.toLowerCase();
@@ -333,7 +334,7 @@
           ...extra
         })
       }).catch(() => {});
-    }, 300000);
+    }, 60000);
   }
 
   function appendLeadForm() {
