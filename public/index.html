@@ -44,12 +44,15 @@
     }
 
     .neo-avatar {
-  ...
-  background-image: url('/neo-avatar.png');
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-image: url('/nob-avatar.png');
   background-size: cover;
   background-position: center;
+  flex-shrink: 0;
   font-size: 0;
-  ...
+  box-shadow: 0 0 0 2px rgba(107,143,113,0.15), 0 0 35px rgba(107,143,113,0.45);
 }
 
     .neo-avatar.small {
@@ -203,7 +206,7 @@
 <body>
 <div class="chat-container">
   <div class="header">
-    <div class="neo-avatar">N</div>
+    <div class="neo-avatar"></div>
     <div>
       <h1>Nobili Portrait</h1>
       <p>Chatta con noi</p>
@@ -256,7 +259,6 @@
     row.className = 'bot-row';
     const avatar = document.createElement('div');
     avatar.className = 'neo-avatar small';
-    avatar.textContent = 'N';
     row.appendChild(avatar);
     return row;
   }
