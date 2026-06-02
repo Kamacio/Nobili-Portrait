@@ -73,10 +73,11 @@
     }
 
     #neo-widget-chat iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
 
     #neo-widget-chat-close {
       position: fixed;
@@ -103,12 +104,16 @@
 
     @media(max-width:768px) {
       #neo-widget-chat {
-        width: 100%;
-        height: 100%;
-        right: 0;
-        bottom: 0;
-        border-radius: 0;
-      }
+  width: calc(100vw - 24px);
+  height: calc(100dvh - 24px);
+  right: 12px;
+  left: 12px;
+  bottom: 12px;
+  top: 12px;
+  border-radius: 22px;
+  max-width: none;
+  max-height: none;
+}
 
       #neo-widget-chat-close {
         top: 14px;
