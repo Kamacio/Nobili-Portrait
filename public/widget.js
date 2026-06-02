@@ -141,7 +141,7 @@
   popup.innerHTML = `
     <div class="neo-popup-close">×</div>
     <strong>Ciao, sono NEO 👋</strong><br>
-    Posso aiutarti a orientarti nella Newborn Academy.
+    Posso aiutarti a comprendere meglio la nostra proposta?
   `;
 
   document.body.appendChild(popup);
