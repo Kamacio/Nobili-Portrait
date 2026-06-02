@@ -81,21 +81,22 @@
 
     #neo-widget-chat-close {
   position: fixed;
-  top: 18px;
-  right: 18px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.82);
-  color: white;
-  display: none;
+  top: 170px;
+  right: 42px;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  display: none;@
   align-items: center;
   justify-content: center;
-  z-index: 1000001;
   cursor: pointer;
-  font-size: 20px;
+  z-index: 1000002;
+  font-family: Arial, sans-serif;
+  font-size: 22px;
   font-weight: 700;
-  backdrop-filter: blur(10px);
+  line-height: 1;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
@@ -124,10 +125,12 @@
   }
 
   #neo-widget-chat-close {
-    top: 22px;
-    right: 22px;
-    bottom: auto;
-  }
+  top: 174px;
+  right: 42px;
+  bottom: auto;
+  background: #111;
+  color: #fff;
+}
 
   #neo-widget-popup {
   right: 16px;
