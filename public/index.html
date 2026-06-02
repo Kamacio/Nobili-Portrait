@@ -4,14 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NEO - Nobili Portrait</title>
-
   <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
       background: #f7f3ec;
       color: #111;
       font-family: Arial, sans-serif;
@@ -19,83 +15,56 @@
     }
 
     .chat-container {
-      width: 100%;
-      max-width: 100%;
-      height: 100%;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-      background: #f7f3ec;
-      overflow: hidden;
-    }
-
-    h1 {
-      margin-top: 0;
+      width: 100%; max-width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      background: #f7f3ec; overflow: hidden;
     }
 
     .header {
       padding: 10px 20px 14px;
       background: #f7f3ec;
       border-bottom: 1px solid rgba(20,20,20,0.10);
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      position: relative;
-      overflow: hidden;
+      display: flex; align-items: flex-start; gap: 14px;
       flex-shrink: 0;
     }
 
     .header h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 24px;
-  line-height: 1.1;
-}
+      margin: 0; padding: 0;
+      font-size: 24px; line-height: 0.95;
+    }
 
     .header p {
-  margin: 6px 0 0 !important;
-  padding: 0;
-  opacity: 0.7;
-  font-size: 13px;
-  line-height: 1.2;
-}
+      margin: 4px 0 0 !important; padding: 0;
+      opacity: 0.7; font-size: 13px; line-height: 1;
+    }
 
     .header > div:last-child {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  justify-content: center;
-  padding-top: 0;
-}
+      display: flex; flex-direction: column;
+      gap: 0; justify-content: center; padding-top: 2px;
+    }
+
     .neo-avatar {
-      width: 42px;
-      height: 42px;
+      width: 42px; height: 42px;
       border-radius: 50%;
-      background-image: url('/neo-avatar.png');
-      background-size: cover;
-      background-position: center;
+      background: #6b8f71;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: bold; font-size: 16px;
       flex-shrink: 0;
-      font-size: 0;
-      box-shadow:
-        0 0 0 2px rgba(107,143,113,0.15),
-        0 0 35px rgba(107,143,113,0.45);
+      box-shadow: 0 0 0 2px rgba(107,143,113,0.15), 0 0 35px rgba(107,143,113,0.45);
     }
 
     .neo-avatar.small {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
+      font-size: 12px; flex-shrink: 0;
     }
 
     .bot-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
+      display: flex; align-items: flex-start;
+      gap: 10px; margin-bottom: 12px;
     }
 
     #chat {
-      flex: 1;
-      min-height: 0;
+      flex: 1; min-height: 0;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       background: #f7f3ec;
@@ -110,555 +79,408 @@
       line-height: 1.45;
       animation: fadeInUp 0.25s ease;
       word-wrap: break-word;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 14px; font-weight: 400;
     }
 
     .user {
-      background: #111;
-      color: #fff;
+      background: #111; color: #fff;
       margin-left: auto;
       border-bottom-right-radius: 6px;
     }
 
     .bot {
-      background: #ffffff;
-      color: #111;
+      background: #ffffff; color: #111;
       border: 1px solid rgba(20,20,20,0.08);
       border-bottom-left-radius: 6px;
       box-shadow: 0 10px 28px rgba(0,0,0,0.05);
     }
 
     .time {
-      display: block;
-      font-size: 11px;
-      opacity: 0.55;
-      margin-top: 6px;
-      text-align: right;
+      display: block; font-size: 11px;
+      opacity: 0.55; margin-top: 6px; text-align: right;
     }
 
     .typing-dots {
-      display: inline-flex;
-      gap: 4px;
-      align-items: center;
+      display: inline-flex; gap: 4px; align-items: center;
     }
 
     .typing-dots span {
-      width: 6px;
-      height: 6px;
-      background: #111;
-      border-radius: 50%;
+      width: 6px; height: 6px;
+      background: #111; border-radius: 50%;
       opacity: 0.35;
       animation: typingPulse 1.2s infinite ease-in-out;
     }
 
-    .typing-dots span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-dots span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
 
     @keyframes typingPulse {
-      0%, 80%, 100% {
-        opacity: 0.25;
-        transform: translateY(0);
-      }
-
-      40% {
-        opacity: 1;
-        transform: translateY(-3px);
-      }
+      0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+      40% { opacity: 1; transform: translateY(-3px); }
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .quick-actions {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 0 15px 10px;
-      background: #111;
-    }
-
-    .quick-actions button {
-      white-space: nowrap;
-      background: #1d1d1d;
-      color: white;
-      border: 1px solid #333;
-      padding: 10px 14px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .quick-actions button:hover {
-      background: #2a2a2a;
-    }
-
-    .lead-form {
-      background: #181818;
-      border: 1px solid #2a2a2a;
-      border-radius: 18px;
-      padding: 14px;
-      margin-top: 10px;
-    }
-
-    .lead-form input {
-      width: 100%;
-      box-sizing: border-box;
-      margin-bottom: 10px;
-      border-radius: 12px;
-      padding: 12px;
-      background: #222;
-      color: white;
-      border: 1px solid #333;
-      font-size: 16px;
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .input-row {
-      display: flex;
-      gap: 10px;
+      display: flex; gap: 10px;
       padding: 15px 15px calc(15px + env(safe-area-inset-bottom));
       background: #f7f3ec;
       border-top: 1px solid rgba(20,20,20,0.10);
-      position: relative;
-      bottom: auto;
       flex-shrink: 0;
     }
 
-    input {
+    #messageInput {
       flex: 1;
-      padding: 0 16px;
-      height: 50px;
+      padding: 0 16px; height: 50px;
       border-radius: 999px;
       border: 1px solid rgba(20,20,20,0.12);
-      background: #ffffff;
-      color: #111;
-      font-family: inherit;
-      font-size: 16px;
-      min-width: 0;
-      outline: none;
+      background: #ffffff; color: #111;
+      font-family: inherit; font-size: 16px;
+      min-width: 0; outline: none;
     }
 
-    input:focus {
-      outline: none;
+    #messageInput:focus {
       border-color: rgba(20,20,20,0.24);
-      box-shadow: none;
     }
 
-    input::placeholder {
+    #messageInput::placeholder {
       color: rgba(20,20,20,0.45);
     }
 
-    button {
-      font-family: inherit;
-      cursor: pointer;
+    #sendBtn {
+      height: 50px; min-width: 78px;
+      padding: 0 22px; border: none;
+      border-radius: 999px;
+      background: #111; color: #fff;
+      font-family: inherit; font-size: 13px;
+      font-weight: 700; letter-spacing: -0.01em;
+      flex-shrink: 0; cursor: pointer;
     }
 
-    .input-row button {
-      height: 50px;
-      min-width: 78px;
-      padding: 0 22px;
-      border: none;
-      border-radius: 999px;
-      background: #111;
-      color: #fff;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      flex-shrink: 0;
+    .lead-form {
+      background: #f0ece4;
+      border: 1px solid rgba(20,20,20,0.10);
+      border-radius: 16px;
+      padding: 14px;
+      margin-top: 4px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .lead-form input {
+      width: 100%; box-sizing: border-box;
+      border-radius: 10px;
+      padding: 11px 13px;
+      background: #ffffff; color: #111;
+      border: 1px solid rgba(20,20,20,0.15);
+      font-size: 14px; font-family: inherit;
+      outline: none;
+    }
+
+    .lead-form input:focus {
+      border-color: rgba(20,20,20,0.30);
     }
 
     .lead-form button {
-      width: 100%;
-      padding: 14px 18px;
-      border: none;
-      border-radius: 14px;
-      background: #ffffff;
-      color: #111;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 700;
+      width: 100%; padding: 13px 18px;
+      border: none; border-radius: 10px;
+      background: #111; color: #fff;
+      font-family: inherit; font-size: 13px;
+      font-weight: 700; cursor: pointer;
+    }
+
+    .lead-confirm {
+      font-size: 13px; line-height: 1.55; color: #333;
     }
 
     @supports (-webkit-touch-callout: none) {
-      html,
-      body {
-        height: -webkit-fill-available;
-      }
-
-      .chat-container {
-        height: -webkit-fill-available;
-      }
+      html, body { height: -webkit-fill-available; }
+      .chat-container { height: -webkit-fill-available; }
     }
   </style>
 </head>
-
 <body>
-  <div class="chat-container">
-    <div class="header">
-      <div class="neo-avatar">N</div>
-      <div>
-        <h1>Nobili Portrait</h1>
-        <p>Chatta con noi</p>
-      </div>
-    </div>
-
-    <div id="chat"></div>
-
-    <div class="input-row">
-      <input type="text" id="message" placeholder="Scrivi un messaggio..." />
-      <button type="button" onclick="sendMessage()">Invia</button>
+<div class="chat-container">
+  <div class="header">
+    <div class="neo-avatar">N</div>
+    <div>
+      <h1>Nobili Portrait</h1>
+      <p>Chatta con noi</p>
     </div>
   </div>
 
-  <script>
-    const conversation = [];
-    let notifyTimeout;
-    let leadSent = false;
+  <div id="chat"></div>
 
-    function hasLeadIntent(text) {
-      const normalized = text.toLowerCase();
+  <div class="input-row">
+    <input type="text" id="messageInput" placeholder="Scrivi un messaggio..." maxlength="1000" />
+    <button id="sendBtn" type="button">Invia</button>
+  </div>
+</div>
 
-      const intentWords = [
-        'prezz',
-        'cost',
-        'info',
-        'informaz',
-        'chiam',
-        'contatt',
-        'proposta',
-        'preventivo',
-        'dettagli',
-        'disponibil',
-        'prenot',
-        'shooting',
-        'servizio',
-        'ritratto',
-        'portrait',
-        'wedding',
-        'couple',
-        'engagement',
-        'anniversary',
-        'vacanza',
-        'italia',
-        'toscana',
-        'piemonte'
-      ];
+<script>
+  /* ─── Stato ─────────────────────────────────────────── */
+  const conversation = [];
+  let notifyTimeout = null;
+  let leadFormSent = false;
 
-      return intentWords.some(word => normalized.includes(word));
-    }
+  /* ─── Utility DOM ────────────────────────────────────── */
+  const chat = document.getElementById('chat');
+  const messageInput = document.getElementById('messageInput');
 
-    function leadFormHTML() {
-      const handler = "if(event.key==='Enter'){event.preventDefault();sendLead();}";
+  function scrollBottom() {
+    chat.scrollTop = chat.scrollHeight;
+  }
 
-      return `
-        <div class="lead-form">
-          <input type="text" id="leadName" placeholder="Il tuo nome" onkeydown="${handler}">
-          <input type="email" id="leadEmail" placeholder="La tua email" onkeydown="${handler}">
-          <input type="tel" id="leadPhone" placeholder="Telefono" onkeydown="${handler}">
-          <button type="button" onclick="sendLead()">Invia</button>
-        </div>
-      `;
-    }
+  function nowTime() {
+    return new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  }
 
-    window.onload = function() {
-      const chat = document.getElementById('chat');
+  function escapeHTML(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
 
-      const welcomeMessage = `
-        <div class="bot-row">
-          <div class="neo-avatar small">N</div>
-          <div class="message bot">
-            <strong>Bot:</strong><br>
-            Qualcosa non è chiaro?<br>
-            Chiedi, mi hanno spiegato tutto 😊<br>
-          </div>
-        </div>
-      `;
+  function appendUserMessage(text) {
+    const div = document.createElement('div');
+    div.className = 'message user';
+    div.innerHTML = `${escapeHTML(text)}<span class="time">${nowTime()}</span>`;
+    chat.appendChild(div);
+    scrollBottom();
+  }
 
-      setTimeout(() => {
-        const typingMessage = document.createElement('div');
-        typingMessage.id = 'welcomeTyping';
+  function createBotRow() {
+    const row = document.createElement('div');
+    row.className = 'bot-row';
+    const avatar = document.createElement('div');
+    avatar.className = 'neo-avatar small';
+    avatar.textContent = 'N';
+    row.appendChild(avatar);
+    return row;
+  }
 
-        typingMessage.innerHTML = `
-          <div class="bot-row">
-            <div class="neo-avatar small">N</div>
-            <div class="message bot">
-              <div class="typing-dots"><span></span><span></span><span></span></div>
-            </div>
-          </div>
-        `;
+  function appendBotMessage(html) {
+    const row = createBotRow();
+    const bubble = document.createElement('div');
+    bubble.className = 'message bot';
+    bubble.innerHTML = `${html}<span class="time">${nowTime()}</span>`;
+    row.appendChild(bubble);
+    chat.appendChild(row);
+    scrollBottom();
+    return bubble;
+  }
 
-        chat.appendChild(typingMessage);
-        chat.scrollTop = chat.scrollHeight;
+  function appendTyping() {
+    const row = createBotRow();
+    const bubble = document.createElement('div');
+    bubble.className = 'message bot';
+    bubble.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
+    row.appendChild(bubble);
+    chat.appendChild(row);
+    scrollBottom();
+    return row;
+  }
 
-        setTimeout(() => {
-          const welcomeTyping = document.getElementById('welcomeTyping');
-          if (welcomeTyping) welcomeTyping.remove();
+  /* ─── Rilevamento intento lead ───────────────────────── */
+  const LEAD_KEYWORDS = [
+    'prezz','cost','info','informaz','chiam','contatt',
+    'proposta','preventivo','dettagli','disponibil','prenot',
+    'shooting','servizio','ritratto','portrait','wedding',
+    'couple','engagement','anniversary','vacanza','italia',
+    'toscana','piemonte'
+  ];
 
-          chat.innerHTML += welcomeMessage;
-          chat.scrollTop = chat.scrollHeight;
+  function hasLeadIntent(text) {
+    const t = text.toLowerCase();
+    return LEAD_KEYWORDS.some(w => t.includes(w));
+  }
 
-          conversation.push({
-            role: 'assistant',
-            content: 'Messaggio iniziale inviato'
-          });
-        }, 1800);
-      }, 1000);
+  function detectInterest(text) {
+    const t = text.toLowerCase();
+    if (t.includes('wedding') || t.includes('matrimonio')) return 'wedding';
+    if (t.includes('couple') || t.includes('coppia')) return 'couple';
+    if (t.includes('engagement') || t.includes('fidanzamento')) return 'engagement';
+    if (t.includes('anniversary') || t.includes('anniversario')) return 'anniversary';
+    if (t.includes('prezzo') || t.includes('costa') || t.includes('cost')) return 'prezzo';
+    return 'generico';
+  }
+
+  /* ─── Estrazione dati contatto dal testo libero ──────── */
+  function extractContact(text) {
+    const emailMatch = text.match(/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/i);
+    const phoneMatch = text.match(/(?:^|[\s,;])(\+?[\d][\d\s\-]{7,14}\d)(?=\s|$|[,;])/);
+    const nameMatch  = text.match(/(?:mi chiamo|sono)\s+([A-Za-zÀ-ÿ]+)/i);
+    return {
+      email: emailMatch ? emailMatch[0] : null,
+      phone: phoneMatch ? phoneMatch[1].replace(/[\s\-]/g, '') : null,
+      name:  nameMatch  ? nameMatch[1] : null,
     };
+  }
 
-    function detectInterest(text) {
-      const t = text.toLowerCase();
-
-      if (t.includes('wedding') || t.includes('matrimonio')) {
-        return 'wedding';
-      }
-
-      if (t.includes('couple') || t.includes('coppia')) {
-        return 'couple';
-      }
-
-      if (t.includes('engagement') || t.includes('fidanzamento')) {
-        return 'engagement';
-      }
-
-      if (t.includes('anniversary') || t.includes('anniversario')) {
-        return 'anniversary';
-      }
-
-      if (t.includes('prezzo') || t.includes('costa') || t.includes('cost')) {
-        return 'prezzo';
-      }
-
-      return 'generico';
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById('message');
-      const chat = document.getElementById('chat');
-      const text = input.value.trim();
-
-      if (!text) return;
-
-      const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
-      const detectedEmail = emailMatch ? emailMatch[0] : null;
-
-      const phoneMatch = text.match(/(\+39\s?)?(\d[\s-]?){8,15}/);
-      const detectedPhone = phoneMatch ? phoneMatch[0].replace(/[\s-]/g, '') : null;
-
-      const nameMatch = text.match(/(mi chiamo|sono)\s+([A-Za-zÀ-ÿ]+)/i);
-      const detectedName = nameMatch ? nameMatch[2] : null;
-
-      const now = new Date().toLocaleTimeString('it-IT', {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-
-      conversation.push({
-        role: 'user',
-        content: text
-      });
-
-      const formattedConversation = conversation
-        .map(msg => `${msg.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${msg.content}`)
+  /* ─── Notifica Make (debounce 5 min) ─────────────────── */
+  function scheduleNotify(extra = {}) {
+    clearTimeout(notifyTimeout);
+    notifyTimeout = setTimeout(() => {
+      const formatted = conversation
+        .map(m => `${m.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${m.content}`)
         .join('\n\n');
+      fetch('https://hook.eu2.make.com/pyj6jphurgnpkklyadxx44y486sx9b15', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          conversation: formatted,
+          page: window.location.href,
+          timestamp: new Date().toISOString(),
+          ...extra
+        })
+      }).catch(() => {});
+    }, 300000);
+  }
 
-      clearTimeout(notifyTimeout);
+  /* ─── Lead form (costruito via DOM, nessun innerHTML +=) */
+  function appendLeadForm() {
+    const row = createBotRow();
+    const bubble = document.createElement('div');
+    bubble.className = 'message bot';
 
-      notifyTimeout = setTimeout(() => {
-        fetch('https://hook.eu2.make.com/pyj6jphurgnpkklyadxx44y486sx9b15', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            conversation: formattedConversation,
-            page: window.location.href,
-            timestamp: new Date().toISOString(),
-            email: detectedEmail,
-            phone: detectedPhone,
-            name: detectedName
-          })
-        });
-      }, 300000);
+    const form = document.createElement('div');
+    form.className = 'lead-form';
 
-      chat.innerHTML += `
-        <div class="message user">
-          ${text}
-          <span class="time">${now}</span>
-        </div>
-      `;
+    const nameInput  = document.createElement('input');
+    nameInput.type = 'text'; nameInput.placeholder = 'Il tuo nome'; nameInput.maxLength = 80;
 
-      input.value = '';
+    const emailInput = document.createElement('input');
+    emailInput.type = 'email'; emailInput.placeholder = 'La tua email'; emailInput.maxLength = 120;
 
-      const typingMessage = document.createElement('div');
-      typingMessage.id = 'typing';
+    const phoneInput = document.createElement('input');
+    phoneInput.type = 'tel'; phoneInput.placeholder = 'Telefono'; phoneInput.maxLength = 20;
 
-      typingMessage.innerHTML = `
-        <div class="bot-row">
-          <div class="neo-avatar small">N</div>
-          <div class="message bot">
-            <div class="typing-dots"><span></span><span></span><span></span></div>
-          </div>
-        </div>
-      `;
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.textContent = 'Invia';
 
-      chat.appendChild(typingMessage);
-      chat.scrollTop = chat.scrollHeight;
-
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            messages: conversation
-          })
-        });
-
-        const data = await response.json();
-
-        const typing = document.getElementById('typing');
-        if (typing) typing.remove();
-
-        conversation.push({
-          role: 'assistant',
-          content: data.reply
-        });
-
-        chat.innerHTML += `
-          <div class="bot-row">
-            <div class="neo-avatar small">N</div>
-            <div class="message bot">
-              ${data.reply}
-              <span class="time">${now}</span>
-            </div>
-          </div>
-        `;
-
-        if (hasLeadIntent(text)) {
-          chat.innerHTML += `
-            <div class="bot-row">
-              <div class="neo-avatar small">N</div>
-              <div class="message bot">
-                Se ti interessa approfondire, rispondi direttamente al messaggio con cui hai ricevuto questa pagina.
-                Così possiamo capire se ha senso costruire una proposta su misura per il tuo brand.
-              </div>
-            </div>
-          `;
-        }
-
-        chat.scrollTop = chat.scrollHeight;
-      } catch (error) {
-        const typing = document.getElementById('typing');
-        if (typing) typing.remove();
-
-        chat.innerHTML += `
-          <div class="bot-row">
-            <div class="neo-avatar small">N</div>
-            <div class="message bot">
-              C'è stato un problema nel ricevere la risposta. Riprova tra qualche secondo.
-              <span class="time">${now}</span>
-            </div>
-          </div>
-        `;
-
-        chat.scrollTop = chat.scrollHeight;
-      }
+    function handleEnter(e) {
+      if (e.key === 'Enter') { e.preventDefault(); btn.click(); }
     }
+    nameInput.addEventListener('keydown', handleEnter);
+    emailInput.addEventListener('keydown', handleEnter);
+    phoneInput.addEventListener('keydown', handleEnter);
 
-    function sendLead() {
-      if (leadSent) return;
-      leadSent = true;
+    btn.addEventListener('click', () => {
+      if (leadFormSent) return;
+      leadFormSent = true;
 
-      const nameEl = document.getElementById('leadName');
-      const emailEl = document.getElementById('leadEmail');
-      const phoneEl = document.getElementById('leadPhone');
-
-      if (!nameEl || !emailEl || !phoneEl) {
-        leadSent = false;
-        return;
-      }
-
-      const name = nameEl.value.trim();
-      const email = emailEl.value.trim();
-      const phone = phoneEl.value.trim();
+      const name  = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const phone = phoneInput.value.trim();
 
       const leadText = `Nome: ${name || '-'}\nEmail: ${email || '-'}\nTelefono: ${phone || '-'}`;
+      conversation.push({ role: 'user', content: leadText });
 
-      conversation.push({
-        role: 'user',
-        content: leadText
-      });
-
-      const formattedConversation = conversation
-        .map(msg => `${msg.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${msg.content}`)
+      const formatted = conversation
+        .map(m => `${m.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${m.content}`)
         .join('\n\n');
-
-      const interest = detectInterest(formattedConversation);
 
       fetch('https://hook.eu2.make.com/pyj6jphurgnpkklyadxx44y486sx9b15', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name,
-          email,
-          phone,
-          conversation: formattedConversation,
-          interest: interest,
+          name, email, phone,
+          conversation: formatted,
+          interest: detectInterest(formatted),
           page: window.location.href,
           timestamp: new Date().toISOString(),
           lead_form: true
         })
-      });
+      }).catch(() => {});
 
-      const form = document.querySelector('.lead-form');
+      // Sostituisce il form con messaggio di conferma (senza innerHTML +=)
+      while (form.firstChild) form.removeChild(form.firstChild);
+      const confirm = document.createElement('div');
+      confirm.className = 'lead-confirm';
+      confirm.innerHTML = `<strong>Dati inviati ✓</strong><br>
+        Nome: ${escapeHTML(name || '-')}<br>
+        Email: ${escapeHTML(email || '-')}<br>
+        Telefono: ${escapeHTML(phone || '-')}<br><br>
+        Perfetto, grazie. Abbiamo ricevuto i tuoi dati e ti ricontatteremo con le informazioni più adatte al tuo caso.<br>
+        Nel frattempo puoi continuare a farmi domande qui in chat.`;
+      form.appendChild(confirm);
 
-      if (form) {
-        form.innerHTML = `
-          <div style="line-height:1.5;">
-            <strong>Dati inviati:</strong><br>
-            Nome: ${name || '-'}<br>
-            Email: ${email || '-'}<br>
-            Telefono: ${phone || '-'}<br><br>
-            Perfetto, grazie. Abbiamo ricevuto i tuoi dati e ti ricontatteremo con le informazioni più adatte al tuo caso.<br><br>
-            Nel frattempo puoi continuare a farmi domande qui in chat.
-          </div>
-        `;
-      }
-
-      conversation.push({
-        role: 'assistant',
-        content: 'Grazie, abbiamo ricevuto i tuoi dati e ti ricontatteremo con le informazioni più adatte al tuo caso.'
-      });
-
-      document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
-    }
-
-    document.getElementById('message').addEventListener('keydown', function(event) {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        sendMessage();
-      }
+      conversation.push({ role: 'assistant', content: 'Grazie, abbiamo ricevuto i tuoi dati e ti ricontatteremo presto.' });
+      scrollBottom();
     });
-  </script>
+
+    form.appendChild(nameInput);
+    form.appendChild(emailInput);
+    form.appendChild(phoneInput);
+    form.appendChild(btn);
+
+    bubble.appendChild(form);
+    row.appendChild(bubble);
+    chat.appendChild(row);
+    scrollBottom();
+  }
+
+  /* ─── Messaggio di benvenuto ─────────────────────────── */
+  const WELCOME = 'Qualcosa non è chiaro?\nChiedi, mi hanno spiegato tutto 😊';
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const typingRow = appendTyping();
+      setTimeout(() => {
+        typingRow.remove();
+        appendBotMessage(escapeHTML(WELCOME).replace(/\n/g, '<br>'));
+        conversation.push({ role: 'assistant', content: WELCOME });
+      }, 1800);
+    }, 1000);
+  });
+
+  /* ─── Invio messaggio ────────────────────────────────── */
+  async function sendMessage() {
+    const text = messageInput.value.trim();
+    if (!text) return;
+
+    messageInput.value = '';
+
+    const contact = extractContact(text);
+    conversation.push({ role: 'user', content: text });
+    appendUserMessage(text);
+    scheduleNotify(contact);
+
+    const typingRow = appendTyping();
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: conversation })
+      });
+
+      const data = await response.json();
+      typingRow.remove();
+
+      const reply = data.reply || 'Non ho ricevuto una risposta. Riprova.';
+      conversation.push({ role: 'assistant', content: reply });
+
+      appendBotMessage(escapeHTML(reply).replace(/\n/g, '<br>'));
+
+      if (hasLeadIntent(text) && !leadFormSent) {
+        appendLeadForm();
+      }
+
+    } catch (err) {
+      typingRow.remove();
+      appendBotMessage('C\'è stato un problema nel ricevere la risposta. Riprova tra qualche secondo.');
+    }
+  }
+
+  /* ─── Event listeners ────────────────────────────────── */
+  document.getElementById('sendBtn').addEventListener('click', sendMessage);
+  messageInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
+  });
+</script>
 </body>
 </html>
