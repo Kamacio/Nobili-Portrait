@@ -103,16 +103,43 @@
     }
 
     @media(max-width:768px) {
-      #neo-widget-chat {
-  width: calc(100vw - 24px);
-  height: calc(100dvh - 24px);
-  right: 12px;
-  left: 12px;
-  bottom: 12px;
-  top: 12px;
-  border-radius: 22px;
-  max-width: none;
-  max-height: none;
+  #neo-widget-chat {
+    width: calc(100vw - 24px);
+    height: calc(100dvh - 24px);
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    top: 12px;
+    border-radius: 22px;
+    max-width: none;
+    max-height: none;
+  }
+
+  #neo-widget-chat iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  #neo-widget-chat-close {
+    top: 22px;
+    right: 22px;
+    bottom: auto;
+  }
+
+  #neo-widget-popup {
+    right: 15px;
+    bottom: 90px;
+    max-width: 220px;
+    font-size: 13px;
+    padding: 14px 38px 14px 16px;
+  }
+
+  #neo-widget-button {
+    right: 15px;
+    bottom: 15px;
+  }
 }
 
       #neo-widget-chat-close {
