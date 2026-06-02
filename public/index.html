@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NEO - Newborn Academy</title>
+  <style>
+    body {
+  margin: 0;
+  background: #f7f3ec;
+  color: #111;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+    .chat-container {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f3ec;
+}
+    h1 { margin-top: 0; }
+    .header {
+  padding: 10px 20px 14px;
+  background: #f7f3ec;
+  border-bottom: 1px solid rgba(20,20,20,0.10);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+    }
+    
+    .header h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  line-height: 0.95;
+}
+
+.header p {
+  margin: -16px 0 0 !important;
+  padding: 0;
+  opacity: 0.7;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.header > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: center;
+  padding-top: 2px;
+}
+    .neo-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background-image: url('/neo-avatar.png');
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      font-size: 0;
+      box-shadow:
+        0 0 0 2px rgba(107,143,113,0.15),
+        0 0 35px rgba(107,143,113,0.45);
+    }
+    .bot-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+    #chat {
+  flex: 1;
+  overflow-y: auto;
+  background: #f7f3ec;
+  padding: 20px;
+}
+    .message {
+  padding: 14px 17px;
+  border-radius: 18px;
+  margin-bottom: 6px;
+  max-width: 82%;
+  line-height: 1.45;
+  animation: fadeInUp 0.25s ease;
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+}
+    .user {
+  background: #111;
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 6px;
+}
+
+.bot {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid rgba(20,20,20,0.08);
+  border-bottom-left-radius: 6px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.05);
+}
+    .time { display: block; font-size: 11px; opacity: 0.55; margin-top: 6px; text-align: right; }
+    .typing-dots { display: inline-flex; gap: 4px; align-items: center; }
+    .typing-dots span {
+      width: 6px; height: 6px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.35;
+      animation: typingPulse 1.2s infinite ease-in-out;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingPulse {
+      0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+      40% { opacity: 1; transform: translateY(-3px); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .quick-actions {
+      display: flex; gap: 8px; overflow-x: auto;
+      padding: 0 15px 10px; background: #111;
+    }
+    .quick-actions button {
+      white-space: nowrap;
+      background: #1d1d1d; color: white;
+      border: 1px solid #333;
+      padding: 10px 14px; border-radius: 20px;
+      font-size: 14px; cursor: pointer; flex-shrink: 0;
+    }
+    .quick-actions button:hover { background: #2a2a2a; }
+    .lead-form {
+      background: #181818;
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+    .lead-form input {
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      padding: 12px;
+      background: #222;
+      color: white;
+      border: 1px solid #333;
+    }
+    .lead-form button { width: 100%; border-radius: 12px; }
+    .input-row {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: #f7f3ec;
+  border-top: 1px solid rgba(20,20,20,0.10);
+  position: sticky;
+  bottom: 0;
+}
+    input {
+  flex: 1;
+  padding: 0 16px;
+  height: 50px;
+  border-radius: 999px;
+  border: 1px solid rgba(20,20,20,0.12);
+  background: #ffffff;
+  color: #111;
+  font-family: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+  border-color: rgba(20,20,20,0.24);
+  box-shadow: none;
+}
+
+input::placeholder {
+  color: rgba(20,20,20,0.45);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.input-row button {
+  height: 50px;
+  min-width: 78px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+
+.lead-form button {
+  width: 100%;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #111;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+  </style>
+</head>
+
+<body>
+  <div class="chat-container">
+    <div class="header">
+      <div class="neo-avatar">N</div>
+      <div>
+        <h1>NEO</h1>
+        <p>Chatta con me</p>
+      </div>
+    </div>
+    <div id="chat"></div>
+    <div class="input-row">
+      <input type="text" id="message" placeholder="Scrivi un messaggio..." />
+      <button type="button" onclick="sendMessage()">Invia</button>
+    </div>
+  </div>
+
+  <script>
+    const conversation = [];
+    let notifyTimeout;
+    let leadSent = false; // GUARD: evita che sendLead() venga eseguita due volte
+
+    function hasLeadIntent(text) {
+      const normalized = text.toLowerCase();
+      const intentWords = [
+        'prezz','cost','info','informaz','iscriv','chiam','contatt',
+        'partecip','corso','percors','programma','dettagli','disponibil',
+        'prenot','iniziar','partire','coaching','academy','lezioni','workshop'
+      ];
+      return intentWords.some(word => normalized.includes(word));
+    }
+
+    // Ritorna il markup del form con onkeydown su ogni singolo input
+    function leadFormHTML() {
+      const handler = "if(event.key==='Enter'){event.preventDefault();sendLead();}";
+      return `
+        <div class="lead-form">
+          <input type="text"  id="leadName"  placeholder="Il tuo nome"  onkeydown="${handler}">
+          <input type="email" id="leadEmail" placeholder="La tua email"  onkeydown="${handler}">
+          <input type="tel"   id="leadPhone" placeholder="Telefono"      onkeydown="${handler}">
+          <button type="button" onclick="sendLead()">Invia</button>
+        </div>
+      `;
+    }
+
+    window.onload = function() {
+      const chat = document.getElementById('chat');
+      const welcomeMessage = `
+        <div class="bot-row">
+          <div class="neo-avatar small">N</div>
+          <div class="message bot">
+            <strong>NEO:</strong><br>
+            Qualcosa non è chiaro?<br>
+            Chiedi, mi hanno spiegato tutto 😊<br>
+          </div>
+        </div>
+      `;
+      setTimeout(() => {
+        const typingMessage = document.createElement('div');
+        typingMessage.id = 'welcomeTyping';
+        typingMessage.innerHTML = `
+          <div class="bot-row">
+            <div class="neo-avatar small">N</div>
+            <div class="message bot">
+              <div class="typing-dots"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        `;
+        chat.appendChild(typingMessage);
+        chat.scrollTop = chat.scrollHeight;
+
+        setTimeout(() => {
+          document.getElementById('welcomeTyping').remove();
+          chat.innerHTML += welcomeMessage;
+          chat.scrollTop = chat.scrollHeight;
+          conversation.push({ role: 'assistant', content: 'Messaggio iniziale inviato' });
+        }, 1800);
+      }, 1000);
+    };
+
+    function detectInterest(text) {
+
+  const t = text.toLowerCase();
+
+  if (t.includes('newborn') || t.includes('neonato')) {
+    return 'newborn';
+  }
+
+  if (t.includes('maternity') || t.includes('gravidanza')) {
+    return 'maternity';
+  }
+
+  if (t.includes('business') || t.includes('marketing')) {
+    return 'business';
+  }
+
+  if (t.includes('workshop')) {
+    return 'workshop';
+  }
+
+  if (t.includes('prezzo') || t.includes('costa')) {
+    return 'prezzo';
+  }
+
+  return 'generico';
+}
+    async function sendMessage() {
+      const input = document.getElementById('message');
+      const chat  = document.getElementById('chat');
+      const text  = input.value.trim();
+      if (!text) return;
+
+      const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+      const detectedEmail = emailMatch ? emailMatch[0] : null;
+      const phoneMatch = text.match(/(\+39\s?)?(\d[\s-]?){8,15}/);
+      const detectedPhone = phoneMatch ? phoneMatch[0].replace(/[\s-]/g, '') : null;
+      const nameMatch = text.match(/(mi chiamo|sono)\s+([A-Za-zÀ-ÿ]+)/i);
+      const detectedName = nameMatch ? nameMatch[2] : null;
+
+      const now = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+      conversation.push({ role: 'user', content: text });
+
+      const formattedConversation = conversation
+        .map(msg => `${msg.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${msg.content}`)
+        .join('\n\n');
+
+      clearTimeout(notifyTimeout);
+      notifyTimeout = setTimeout(() => {
+        fetch('https://hook.eu2.make.com/pyj6jphurgnpkklyadxx44y486sx9b15', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            conversation: formattedConversation,
+            page: window.location.href,
+            timestamp: new Date().toISOString(),
+            email: detectedEmail,
+            phone: detectedPhone,
+            name: detectedName
+          })
+        });
+      }, 300000);
+
+      chat.innerHTML += `
+        <div class="message user">
+          ${text}
+          <span class="time">${now}</span>
+        </div>
+      `;
+      input.value = '';
+
+      const typingMessage = document.createElement('div');
+      typingMessage.id = 'typing';
+      typingMessage.innerHTML = `
+        <div class="bot-row">
+          <div class="neo-avatar small">N</div>
+          <div class="message bot">
+            <div class="typing-dots"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      `;
+      chat.appendChild(typingMessage);
+      chat.scrollTop = chat.scrollHeight;
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: conversation })
+      });
+      const data = await response.json();
+
+      const typing = document.getElementById('typing');
+      if (typing) typing.remove();
+
+      conversation.push({ role: 'assistant', content: data.reply });
+
+      chat.innerHTML += `
+        <div class="bot-row">
+          <div class="neo-avatar small">N</div>
+          <div class="message bot">
+            ${data.reply}
+            <span class="time">${now}</span>
+          </div>
+        </div>
+      `;
+
+      if (hasLeadIntent(text)) {
+  chat.innerHTML += `
+    <div class="bot-row">
+      <div class="neo-avatar small">N</div>
+      <div class="message bot">
+        Se ti interessa approfondire, rispondi direttamente al messaggio con cui hai ricevuto questa pagina.
+        Così possiamo capire se ha senso costruire una proposta su misura per il tuo brand.
+      </div>
+    </div>
+  `;
+}
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function sendLead() {
+      // GUARD: impedisce doppia esecuzione (es. onkeydown + click simultanei)
+      if (leadSent) return;
+      leadSent = true;
+
+      const nameEl  = document.getElementById('leadName');
+      const emailEl = document.getElementById('leadEmail');
+      const phoneEl = document.getElementById('leadPhone');
+
+      // Sicurezza extra: se gli elementi non esistono, reset e uscita
+      if (!nameEl || !emailEl || !phoneEl) {
+        leadSent = false;
+        return;
+      }
+
+      const name  = nameEl.value.trim();
+      const email = emailEl.value.trim();
+      const phone = phoneEl.value.trim();
+
+      const leadText = `Nome: ${name || '-'}\nEmail: ${email || '-'}\nTelefono: ${phone || '-'}`;
+      conversation.push({ role: 'user', content: leadText });
+
+      const formattedConversation = conversation
+        .map(msg => `${msg.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${msg.content}`)
+        .join('\n\n');
+const interest = detectInterest(formattedConversation);
+      fetch('https://hook.eu2.make.com/pyj6jphurgnpkklyadxx44y486sx9b15', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name, email, phone,
+          conversation: formattedConversation,
+          interest: interest,
+          page: window.location.href,
+          timestamp: new Date().toISOString(),
+          lead_form: true
+        })
+      });
+
+      const form = document.querySelector('.lead-form');
+      if (form) {
+        form.innerHTML = `
+          <div style="line-height:1.5;">
+            <strong>Dati inviati:</strong><br>
+            Nome: ${name || '-'}<br>
+            Email: ${email || '-'}<br>
+            Telefono: ${phone || '-'}<br><br>
+            Perfetto, grazie. Abbiamo ricevuto i tuoi dati e ti ricontatteremo con le informazioni più adatte al tuo caso.<br><br>
+            Nel frattempo puoi continuare a farmi domande qui in chat.
+          </div>
+        `;
+      }
+
+      conversation.push({
+        role: 'assistant',
+        content: 'Grazie, abbiamo ricevuto i tuoi dati e ti ricontatteremo con le informazioni più adatte al tuo caso.'
+      });
+
+      document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+    }
+
+    // Unico listener per il campo messaggio principale
+    document.getElementById('message').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>
