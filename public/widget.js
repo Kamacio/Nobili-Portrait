@@ -1,6 +1,6 @@
 (function () {
 
-  const CHATBOT_URL = 'https://proposal-chatbot-plum.vercel.app';
+  const CHATBOT_URL = 'https://newborn-academy-chatbot.vercel.app';
 
   const style = document.createElement('style');
 
@@ -63,15 +63,14 @@
       position: fixed;
       bottom: 100px;
       right: 20px;
-      width: 390px;
+      width: 380px;
       height: 700px;
-      border-radius: 26px;
+      border-radius: 24px;
       overflow: hidden;
-      background: #f7f3ec;
+      background: #000;
       z-index: 999999;
       display: none;
-      box-shadow: 0 28px 80px rgba(0,0,0,0.18);
-      border: 1px solid rgba(20,20,20,0.10);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
 
     #neo-widget-chat iframe {
@@ -87,8 +86,8 @@
       width: 30px;
       height: 30px;
       border-radius: 999px;
-      background: rgba(0,0,0,0.10);
-      color: #111;
+      background: rgba(255,255,255,0.16);
+      color: #ffffff;
       display: none;
       align-items: center;
       justify-content: center;
@@ -100,7 +99,7 @@
     }
 
     #neo-widget-chat-close:hover {
-      background: rgba(0,0,0,0.18);
+      background: rgba(255,255,255,0.25);
     }
 
     @media(max-width:768px) {
@@ -116,7 +115,7 @@
         top: 14px;
         right: 14px;
         bottom: auto;
-        background: rgba(0,0,0,0.10);
+        background: rgba(255,255,255,0.16);
       }
 
       #neo-widget-popup {
@@ -142,7 +141,7 @@
   popup.innerHTML = `
     <div class="neo-popup-close">×</div>
     <strong>Ciao, sono NEO 👋</strong><br>
-    Posso aiutarti a capire meglio questa proposta.
+    Posso aiutarti a orientarti nella Newborn Academy.
   `;
 
   document.body.appendChild(popup);
