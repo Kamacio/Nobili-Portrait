@@ -126,6 +126,18 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Fade-in per parola */
+    .word {
+      display: inline;
+      opacity: 0;
+      animation: wordFade 0.25s ease forwards;
+    }
+
+    @keyframes wordFade {
+      from { opacity: 0; transform: translateY(3px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .input-row {
       display: flex; gap: 10px;
       padding: 15px 15px calc(15px + env(safe-area-inset-bottom));
@@ -261,14 +273,57 @@
     return row;
   }
 
-  function appendBotMessage(html) {
+  /* Fade-in parola per parola.
+     Supporta newline (<br>) e testo semplice.
+     Il timestamp appare dopo l'ultima parola. */
+  function appendBotMessageAnimated(html, onComplete) {
     const row = createBotRow();
     const bubble = document.createElement('div');
     bubble.className = 'message bot';
-    bubble.innerHTML = `${html}<span class="time">${nowTime()}</span>`;
-    row.appendChild(bubble);
     chat.appendChild(row);
+    row.appendChild(bubble);
     scrollBottom();
+
+    // Splittiamo su <br> per preservare gli a-capo
+    const lines = html.split(/<br\s*\/?>/i);
+    const DELAY = 60; // ms tra una parola e l'altra
+    let wordIndex = 0;
+
+    lines.forEach((line, lineIdx) => {
+      const words = line.split(' ').filter(w => w.length > 0);
+
+      words.forEach((word) => {
+        const span = document.createElement('span');
+        span.className = 'word';
+        span.textContent = word + ' ';
+        span.style.animationDelay = `${wordIndex * DELAY}ms`;
+        bubble.appendChild(span);
+        wordIndex++;
+      });
+
+      // Aggiunge <br> tra le righe (non dopo l'ultima)
+      if (lineIdx < lines.length - 1) {
+        bubble.appendChild(document.createElement('br'));
+      }
+    });
+
+    // Timestamp dopo l'ultima parola
+    const totalDuration = wordIndex * DELAY + 250;
+    setTimeout(() => {
+      const time = document.createElement('span');
+      time.className = 'time';
+      time.textContent = nowTime();
+      bubble.appendChild(time);
+      scrollBottom();
+      if (onComplete) onComplete();
+    }, totalDuration);
+
+    // Scroll progressivo durante l'animazione
+    const scrollInterval = setInterval(() => {
+      scrollBottom();
+    }, 100);
+    setTimeout(() => clearInterval(scrollInterval), totalDuration + 300);
+
     return bubble;
   }
 
@@ -284,18 +339,18 @@
   }
 
   const LEAD_KEYWORDS = [
-  'contattarvi', 'contattarci', 'contattatemi',
-  'parlarvi', 'parlarci', 'parlare con voi',
-  'vorrei essere contattato', 'mandate', 'mandatemi',
-  'chiamatemi', 'scrivetemi', 'lascio i miei dati',
-  'lascio il numero', 'lascio la mail',
-  'come vi contatto', 'come posso contattarvi'
-];
+    'contattarvi', 'contattarci', 'contattatemi',
+    'parlarvi', 'parlarci', 'parlare con voi',
+    'vorrei essere contattato', 'mandate', 'mandatemi',
+    'chiamatemi', 'scrivetemi', 'lascio i miei dati',
+    'lascio il numero', 'lascio la mail',
+    'come vi contatto', 'come posso contattarvi'
+  ];
 
   function hasLeadIntent(text) {
-  const t = text.toLowerCase();
-  return LEAD_KEYWORDS.some(w => t.includes(w));
-}
+    const t = text.toLowerCase();
+    return LEAD_KEYWORDS.some(w => t.includes(w));
+  }
 
   function detectInterest(text) {
     const t = text.toLowerCase();
@@ -425,7 +480,7 @@
       const typingRow = appendTyping();
       setTimeout(() => {
         typingRow.remove();
-        appendBotMessage(escapeHTML(WELCOME).replace(/\n/g, '<br>'));
+        appendBotMessageAnimated(escapeHTML(WELCOME).replace(/\n/g, '<br>'));
         conversation.push({ role: 'assistant', content: WELCOME });
       }, 1800);
     }, 1000);
@@ -457,15 +512,15 @@
       const reply = data.reply || 'Non ho ricevuto una risposta. Riprova.';
       conversation.push({ role: 'assistant', content: reply });
 
-      appendBotMessage(escapeHTML(reply).replace(/\n/g, '<br>'));
-
-      if (hasLeadIntent(text) && !leadFormSent) {
-        appendLeadForm();
-      }
+      appendBotMessageAnimated(escapeHTML(reply).replace(/\n/g, '<br>'), () => {
+        if (hasLeadIntent(text) && !leadFormSent) {
+          appendLeadForm();
+        }
+      });
 
     } catch (err) {
       typingRow.remove();
-      appendBotMessage('C\'è stato un problema nel ricevere la risposta. Riprova tra qualche secondo.');
+      appendBotMessageAnimated('C\'è stato un problema nel ricevere la risposta. Riprova tra qualche secondo.');
     }
   }
 
