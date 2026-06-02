@@ -9,8 +9,8 @@
     style.innerHTML = `
       #neo-widget-button {
         position: fixed;
-        bottom: 20px;
         right: 20px;
+        bottom: 20px;
         width: 64px;
         height: 64px;
         border-radius: 50%;
@@ -25,13 +25,13 @@
 
       #neo-widget-popup {
         position: fixed;
-        bottom: 95px;
         right: 20px;
+        bottom: 95px;
+        max-width: 260px;
         background: #1d1d1d;
-        color: white;
+        color: #fff;
         padding: 18px 42px 18px 18px;
         border-radius: 18px;
-        max-width: 260px;
         font-family: Arial, sans-serif;
         font-size: 14px;
         line-height: 1.5;
@@ -104,15 +104,20 @@
 
       @media (max-width: 768px) {
         #neo-widget-chat {
-          top: 0 !important;
+          top: var(--neo-top, 0px) !important;
           left: 0 !important;
           right: auto !important;
           bottom: auto !important;
           width: 100vw !important;
-          height: 100svh !important;
+          height: var(--neo-height, 100svh) !important;
           max-width: none !important;
           max-height: none !important;
           border-radius: 0 !important;
+        }
+
+        #neo-widget-button {
+          right: 15px;
+          bottom: 15px;
         }
 
         #neo-widget-popup {
@@ -124,11 +129,6 @@
           line-height: 1.4;
           padding: 14px 38px 14px 16px;
           border-radius: 18px;
-        }
-
-        #neo-widget-button {
-          right: 15px;
-          bottom: 15px;
         }
 
         #neo-widget-chat-close {
@@ -164,18 +164,44 @@
     const popupClose = popup.querySelector('.neo-popup-close');
     const chatClose = chat.querySelector('#neo-widget-chat-close');
 
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+
+    function updateMobileSize() {
+      if (!isMobile()) return;
+
+      let height = window.innerHeight;
+      let top = 0;
+
+      if (window.visualViewport) {
+        height = window.visualViewport.height;
+        top = window.visualViewport.offsetTop;
+      }
+
+      document.documentElement.style.setProperty('--neo-height', height + 'px');
+      document.documentElement.style.setProperty('--neo-top', top + 'px');
+    }
+
     function openChat() {
+      updateMobileSize();
+
       chat.style.display = 'block';
       popup.style.display = 'none';
 
-      if (window.innerWidth <= 768) {
+      if (isMobile()) {
         button.style.display = 'none';
       }
+
+      setTimeout(updateMobileSize, 300);
+      setTimeout(updateMobileSize, 700);
     }
 
     function closeChat() {
       chat.style.display = 'none';
       button.style.display = 'block';
+      document.documentElement.style.removeProperty('--neo-height');
+      document.documentElement.style.removeProperty('--neo-top');
     }
 
     button.addEventListener('click', function () {
@@ -196,10 +222,20 @@
       popup.classList.add('show');
     }, 1200);
 
-    if (window.innerWidth <= 768) {
+    if (isMobile()) {
       setTimeout(function () {
         popup.classList.remove('show');
       }, 8000);
+    }
+
+    window.addEventListener('resize', updateMobileSize);
+    window.addEventListener('orientationchange', function () {
+      setTimeout(updateMobileSize, 300);
+    });
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateMobileSize);
+      window.visualViewport.addEventListener('scroll', updateMobileSize);
     }
   }
 
