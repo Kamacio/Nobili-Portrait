@@ -107,8 +107,15 @@
       }
 
       #neo-widget-popup {
-        display: none;
-      }
+  right: 16px;
+  bottom: 88px;
+  width: 250px;
+  max-width: calc(100vw - 32px);
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 14px 38px 14px 16px;
+  border-radius: 18px;
+}
 
       #neo-widget-button {
         right: 15px;
@@ -137,11 +144,15 @@
     popup.style.display = 'none';
   });
 
-  if (window.innerWidth > 768) {
-    setTimeout(function () {
-      popup.classList.add('show');
-    }, 1200);
-  }
+  setTimeout(function () {
+  popup.classList.add('show');
+}, 1200);
+
+if (window.innerWidth <= 768) {
+  setTimeout(function () {
+    popup.classList.remove('show');
+  }, 8000);
+}
 
   const button = document.createElement('div');
   button.id = 'neo-widget-button';
