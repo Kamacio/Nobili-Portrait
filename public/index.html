@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NEO - Nobili Portrait</title>
+  <title>NOB - Nobili Portrait</title>
   <style>
     html, body {
       margin: 0; padding: 0;
@@ -44,20 +44,20 @@
     }
 
     .neo-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background-image: url('/nob-avatar.png');
-  background-size: cover;
-  background-position: center;
-  flex-shrink: 0;
-  font-size: 0;
-  box-shadow: 0 0 0 2px rgba(107,143,113,0.15), 0 0 35px rgba(107,143,113,0.45);
-}
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background-image: url('/neo-avatar.png');
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      font-size: 0;
+      box-shadow: 0 0 0 2px rgba(107,143,113,0.15), 0 0 35px rgba(107,143,113,0.45);
+    }
 
     .neo-avatar.small {
-      width: 32px; height: 32px;
-      font-size: 12px; flex-shrink: 0;
+      width: 32px;
+      height: 32px;
     }
 
     .bot-row {
@@ -222,12 +222,10 @@
 </div>
 
 <script>
-  /* ─── Stato ─────────────────────────────────────────── */
   const conversation = [];
   let notifyTimeout = null;
   let leadFormSent = false;
 
-  /* ─── Utility DOM ────────────────────────────────────── */
   const chat = document.getElementById('chat');
   const messageInput = document.getElementById('messageInput');
 
@@ -285,7 +283,6 @@
     return row;
   }
 
-  /* ─── Rilevamento intento lead ───────────────────────── */
   const LEAD_KEYWORDS = [
     'prezz','cost','info','informaz','chiam','contatt',
     'proposta','preventivo','dettagli','disponibil','prenot',
@@ -309,7 +306,6 @@
     return 'generico';
   }
 
-  /* ─── Estrazione dati contatto dal testo libero ──────── */
   function extractContact(text) {
     const emailMatch = text.match(/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/i);
     const phoneMatch = text.match(/(?:^|[\s,;])(\+?[\d][\d\s\-]{7,14}\d)(?=\s|$|[,;])/);
@@ -321,12 +317,11 @@
     };
   }
 
-  /* ─── Notifica Make (debounce 5 min) ─────────────────── */
   function scheduleNotify(extra = {}) {
     clearTimeout(notifyTimeout);
     notifyTimeout = setTimeout(() => {
       const formatted = conversation
-        .map(m => `${m.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${m.content}`)
+        .map(m => `${m.role === 'assistant' ? 'NOB' : 'UTENTE'}: ${m.content}`)
         .join('\n\n');
       fetch('https://hook.eu2.make.com/pyj6jphurgnpkklyadxx44y486sx9b15', {
         method: 'POST',
@@ -341,7 +336,6 @@
     }, 300000);
   }
 
-  /* ─── Lead form (costruito via DOM, nessun innerHTML +=) */
   function appendLeadForm() {
     const row = createBotRow();
     const bubble = document.createElement('div');
@@ -381,7 +375,7 @@
       conversation.push({ role: 'user', content: leadText });
 
       const formatted = conversation
-        .map(m => `${m.role === 'assistant' ? 'NEO' : 'UTENTE'}: ${m.content}`)
+        .map(m => `${m.role === 'assistant' ? 'NOB' : 'UTENTE'}: ${m.content}`)
         .join('\n\n');
 
       fetch('https://hook.eu2.make.com/pyj6jphurgnpkklyadxx44y486sx9b15', {
@@ -397,7 +391,6 @@
         })
       }).catch(() => {});
 
-      // Sostituisce il form con messaggio di conferma (senza innerHTML +=)
       while (form.firstChild) form.removeChild(form.firstChild);
       const confirm = document.createElement('div');
       confirm.className = 'lead-confirm';
@@ -424,7 +417,6 @@
     scrollBottom();
   }
 
-  /* ─── Messaggio di benvenuto ─────────────────────────── */
   const WELCOME = 'Bisogno di aiuto?\nChiedi pure, sono preparatissimo 😊';
 
   window.addEventListener('load', () => {
@@ -438,7 +430,6 @@
     }, 1000);
   });
 
-  /* ─── Invio messaggio ────────────────────────────────── */
   async function sendMessage() {
     const text = messageInput.value.trim();
     if (!text) return;
@@ -477,7 +468,6 @@
     }
   }
 
-  /* ─── Event listeners ────────────────────────────────── */
   document.getElementById('sendBtn').addEventListener('click', sendMessage);
   messageInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
