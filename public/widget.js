@@ -146,8 +146,8 @@
 
   popup.innerHTML = `
     <div class="neo-popup-close">×</div>
-    <strong>Ciao, sono NEO 👋</strong><br>
-    Posso aiutarti a capire meglio questa proposta.
+    <strong>Ciao, sono NOB 👋</strong><br>
+    Posso aiutarti a comprendere meglio la nostra proposta?
   `;
 
   document.body.appendChild(popup);
