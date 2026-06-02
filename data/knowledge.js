@@ -190,3 +190,5 @@ Risposta:
 “Sì. Le sessioni Family Lifestyle e Family Reunion sono una parte centrale del progetto Nobile Portrait.”
 
 `;
+
+module.exports = { knowledgeBase };
