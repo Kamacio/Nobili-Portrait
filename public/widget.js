@@ -53,26 +53,22 @@
     }
 
     #neo-widget-chat {
-      position: fixed;
-      bottom: 100px;
-      right: 20px;
-      width: 390px;
-      height: 700px;
-      border-radius: 26px;
-      overflow: hidden;
-      background: #f7f3ec;
-      z-index: 999999;
-      display: none;
-      box-shadow: 0 28px 80px rgba(0,0,0,0.18);
-      border: 1px solid rgba(20,20,20,0.10);
-    }
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  background: #f7f3ec;
+  z-index: 999999;
+  display: none;
+  overflow: hidden;
+}
 
     #neo-widget-chat iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
+  width: 100vw;
+  height: 100dvh;
+  border: none;
+  display: block;
+}
 
     #neo-widget-chat-close {
       position: absolute;
@@ -123,9 +119,26 @@
       }
 
       #neo-widget-chat-close {
-        top: 12px;
-        right: 12px;
-      }
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.82);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000002;
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
     }
   `;
 
